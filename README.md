@@ -49,7 +49,7 @@ If `file` is a buffer, its contents will be written to a temporary file whose pa
   // Crop by the specified pixel values before searching for barcodes
   crop: { left: 10, top: 20, width: 30, height: 40 },
   // Only search for the specified barcode formats
-  // See ZebraCrossing.FORMATS for supported formats
+  // See ZebraCrossing.FORMAT for supported formats
   possibleFormats: [ 'AZTEC', 'QR_CODE' ],
 }
 ```
