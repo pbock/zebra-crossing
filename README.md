@@ -23,6 +23,10 @@ Example output:
 }
 ```
 
+## Requirements
+
+The dirty work of actually parsing the barcodes is done by [zxing], a Java library, so you'll need to have a [Java Runtime Environment][jre] installed.
+
 ## API
 
 ZebraCrossing only has one method: `read(file<String|Buffer>, [options])`.
@@ -61,3 +65,4 @@ Because zxing's CLI only accepts file paths, buffers are written to a temporary 
 
 [zxing]: https://github.com/zxing/zxing
 [fp-note]: #a-note-on-file-paths
+[jre]: http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html

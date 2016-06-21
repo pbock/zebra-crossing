@@ -10,6 +10,8 @@ const parseResult = require('./lib/parse-result');
 const corePath = path.resolve(__dirname, 'jar/', 'core-3.1.0.jar');
 const javasePath = path.resolve(__dirname, 'jar/', 'javase-3.1.0.jar');
 
+const FORMAT = require('./lib/supported-formats.js');
+
 function access(filepath, mode) {
 	if (!mode) mode = fs.F_OK;
 	return new Promise((resolve, reject) => {
@@ -32,7 +34,7 @@ function writeBufferToTemporaryFile(buffer) {
 	});
 }
 
-function zxing(file, options) {
+function read(file, options) {
 	let ensureFile;
 	if (Buffer.isBuffer(file)) {
 		ensureFile = writeBufferToTemporaryFile(file);
@@ -82,4 +84,4 @@ function zxing(file, options) {
 		})
 	}))
 }
-module.exports = zxing;
+module.exports = { read, FORMAT };
