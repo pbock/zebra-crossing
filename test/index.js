@@ -4,21 +4,30 @@ const chai = require('chai');
 chai.use(require('chai-as-promised'));
 const expect = chai.expect;
 const path = require('path');
+const fs = require('fs');
 
 const zebraCrossing = require('..');
 
 const imageDir = path.resolve(__dirname, 'images/');
 
+const eanPath = path.resolve(imageDir, '12345670.ean.gif');
+const eanData = {
+	type: 'PRODUCT',
+	format: 'EAN_8',
+	raw: Buffer.from('12345670'),
+	parsed: Buffer.from('12345670'),
+	points: [ [17, 50], [145, 50] ],
+};
+
 describe('zxing', function () {
 	it('works without options', function () {
-		return expect( zebraCrossing(path.resolve(imageDir, '12345670.ean.gif')) )
-			.to.become({
-				type: 'PRODUCT',
-				format: 'EAN_8',
-				raw: Buffer.from('12345670'),
-				parsed: Buffer.from('12345670'),
-				points: [ [17, 50], [145, 50] ],
-			})
+		return expect( zebraCrossing(eanPath) )
+			.to.become(eanData)
+	})
+
+	it('supports buffers', function () {
+		return expect( zebraCrossing(fs.readFileSync(eanPath)) )
+			.to.become(eanData)
 	})
 
 	it('resolves with an array when called with { multi: true }', function () {

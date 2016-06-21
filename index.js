@@ -1,10 +1,11 @@
 'use strict';
 
 const fs = require('fs');
+const tmp = require('tmp');
+const path = require('path');
 const spawn = require('child_process').spawn;
 const params = require('./lib/params');
 const parseResult = require('./lib/parse-result');
-const path = require('path');
 
 const corePath = path.resolve(__dirname, 'jar/', 'core-3.1.0.jar');
 const javasePath = path.resolve(__dirname, 'jar/', 'javase-3.1.0.jar');
@@ -14,15 +15,33 @@ function access(filepath, mode) {
 	return new Promise((resolve, reject) => {
 		fs.access(filepath, mode, err => {
 			if (err) reject(err);
-			else resolve();
+			else resolve(filepath);
 		})
 	})
 }
 
-function zxing(filepath, options) {
+function writeBufferToTemporaryFile(buffer) {
+	return new Promise((resolve, reject) => {
+		tmp.file((err, path, fd) => {
+			if (err) return reject(err);
+			fs.write(fd, buffer, 0, buffer.length, err => {
+				if (err) return reject(err);
+				return resolve(path);
+			})
+		})
+	});
+}
+
+function zxing(file, options) {
+	let ensureFile;
+	if (Buffer.isBuffer(file)) {
+		ensureFile = writeBufferToTemporaryFile(file);
+	} else {
+		ensureFile = access(file, fs.R_OK);
+	}
 	// Check if the file is readable before handing the path off to zxing,
 	// because it will take ages otherwise.
-	return access(filepath, fs.R_OK).then(() => new Promise((resolve, reject) => {
+	return ensureFile.then((filepath) => new Promise((resolve, reject) => {
 		const args = [
 			'-cp',
 			javasePath + ':' + corePath,
