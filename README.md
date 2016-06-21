@@ -31,25 +31,25 @@ The dirty work of actually parsing the barcodes is done by [zxing], a Java libra
 
 ZebraCrossing only has one method: `read(file<String|Buffer>, [options])`.
 
-If `file` is a string, it will be assumed to be a path to be read.  
-If `file` is a buffer, its contents will be written to a temporary file; its path will be passed to zxing.
+If `file` is a string, it will be assumed to be a file path that will be passed to zxing.
+If `file` is a buffer, its contents will be written to a temporary file whose path will be passed to zxing.
 
 `options` can be an object like this:
 
 ```js
 {
-	// Use the TRY_HARDER hint
+  // Use the TRY_HARDER hint
   tryHarder: true,
-	// Image is a direct monochrome image of a barcode, not a photo
+  // Image is a direct monochrome image of a barcode, not a photo
   pureBarcode: true,
-	// Only read retail barcodes (EAN and UPC)
+  // Only read retail barcodes (EAN and UPC)
   productsOnly: true,
-	// Find multiple barcodes in the same image
+  // Find multiple barcodes in the same image
   multi: true,
-	// Crop by the specified pixel values before searching for barcodes
+  // Crop by the specified pixel values before searching for barcodes
   crop: { left: 10, top: 20, width: 30, height: 40 },
-	// Only search for the specified barcode formats
-	// See ZebraCrossing.FORMATS for supported formats
+  // Only search for the specified barcode formats
+  // See ZebraCrossing.FORMATS for supported formats
   possibleFormats: [ 'AZTEC', 'QR_CODE' ],
 }
 ```
