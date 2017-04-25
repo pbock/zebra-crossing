@@ -64,6 +64,15 @@ describe('ZebraCrossing', function () {
 				.to.become(null);
 		})
 
+		it('supports the possibleFormats parameter', function () {
+			return Promise.all([
+				expect( read(path.resolve(imageDir, 'foobar.aztec.gif'), { possibleFormats: [ 'QR_CODE' ] }) )
+					.to.become(null),
+				expect( read(path.resolve(imageDir, 'foobar.aztec.gif'), { possibleFormats: [ 'AZTEC' ] }) )
+					.not.to.become(null),
+			])
+		})
+
 		it('rejects quickly when trying to access a non-accessible file', function () {
 			this.timeout(10);
 			return expect( read(path.resolve(imageDir, 'no-such-file.png')) )
