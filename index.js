@@ -46,7 +46,7 @@ function read(file, options) {
 	return ensureFile.then((filepath) => new Promise((resolve, reject) => {
 		const args = [
 			'-cp',
-			javasePath + ':' + corePath,
+			javasePath + path.delimiter + corePath,
 			'com.google.zxing.client.j2se.CommandLineRunner',
 			filepath,
 		].concat(params(options));
