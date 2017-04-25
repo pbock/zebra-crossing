@@ -17,6 +17,7 @@ Found 3 result points.
   Point 1: (774.0,405.0)
   Point 2: (830.0,405.0)
 `);
+const singleWin = Buffer.from(single.toString().replace(/\n/g, '\r\n'));
 
 const multi = Buffer.from(
 `file:///path/multi.png (format: QR_CODE, type: TEXT):
@@ -47,6 +48,16 @@ Found 8 result points.
 describe('parseResult', function () {
 	it('parses single results', function () {
 		expect(parse(single))
+			.to.deep.equal([ {
+				raw: Buffer.from('This is the raw result'),
+				parsed: Buffer.from('This is the parsed result'),
+				format: 'QR_CODE',
+				type: 'TEXT',
+				points: [ [774.0,461.0], [774.0,405.0], [830.0,405.0] ],
+			} ])
+	})
+	it('parses single results with Windows line endings (\\r\\n)', function () {
+		expect(parse(singleWin))
 			.to.deep.equal([ {
 				raw: Buffer.from('This is the raw result'),
 				parsed: Buffer.from('This is the parsed result'),
