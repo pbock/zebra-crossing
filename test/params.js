@@ -46,7 +46,7 @@ describe('params', function () {
 
 	it('supports possibleFormats', function () {
 		expect(params({ possibleFormats: [ 'EAN_13', 'QR_CODE', 'CODABAR' ] }))
-			.to.deep.equal([ '--possible_formats=EAN_13,QR_CODE,CODABAR' ]);
+			.to.deep.equal([ '--possibleFormats=EAN_13,QR_CODE,CODABAR' ]);
 	})
 
 	it('throws when an unknown format is passed', function () {
@@ -56,7 +56,7 @@ describe('params', function () {
 
 	it('supports multiple options', function () {
 		expect(params({ pureBarcode: true, possibleFormats: [ 'AZTEC', 'QR_CODE' ] }))
-			.to.deep.equal([ '--pure_barcode', '--possible_formats=AZTEC,QR_CODE' ])
+			.to.deep.equal([ '--pure_barcode', '--possibleFormats=AZTEC,QR_CODE' ])
 	})
 
 	it('throws on unknown options', function () {
