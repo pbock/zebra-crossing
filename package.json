@@ -21,8 +21,9 @@
 	},
 	"homepage": "https://github.com/pbock/zebra-crossing#readme",
 	"devDependencies": {
-		"mocha": "*",
-		"chai": "*"
+		"chai": "*",
+		"chai-as-promised": "^7.1.1",
+		"mocha": "*"
 	},
 	"dependencies": {
 		"tmp": "*"

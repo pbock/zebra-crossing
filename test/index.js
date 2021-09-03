@@ -78,5 +78,13 @@ describe('ZebraCrossing', function () {
 			return expect( read(path.resolve(imageDir, 'no-such-file.png')) )
 				.to.be.rejected;
 		})
+
+		it('supports the aztec codes that return an empty row', function () {
+			return Promise.all([
+				expect( read(path.resolve(imageDir, 'empty-row-included.aztec.png'), { possibleFormats: [ 'AZTEC' ] }) )
+					.not.to.become(null),
+			])
+		})
+
 	});
 })
