@@ -1,6 +1,6 @@
 {
 	"name": "zebra-crossing",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "A wrapper around zxing's CLI that lets you read barcodes",
 	"main": "index.js",
 	"scripts": {
